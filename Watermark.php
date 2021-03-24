@@ -176,7 +176,7 @@ class Watermark
             'silver' => '#C0C0C0',
             'grey' => '#808080',
             'gray' => '#808080',
-            'purpgle' => '#800080',
+            'purple' => '#800080',
             'orange' => '#FFA500',
             'gold' => '#FFD700',
             'tomato' => '#FF6347',
