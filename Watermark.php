@@ -20,7 +20,18 @@ class Watermark
             $this->fontFile = $fontFile;
         }
         $this->rawImg = $rawImg;
-        $this->im = ImageCreateFromjpeg($this->rawImg);
+        $imageType = exif_imagetype($rawImg);
+        switch ($imageType) {
+            case IMAGETYPE_JPEG:
+                $this->im = ImageCreateFromjpeg($this->rawImg);
+                break;
+            case IMAGETYPE_PNG:
+                $this->im = ImageCreateFrompng($this->rawImg);
+                break;
+            case IMAGETYPE_GIF:
+                $this->im = ImageCreateFromgif($this->rawImg);
+                break;
+        }
         $this->imWidth = imagesx($this->im);
         $this->imHeight = imagesy($this->im);
         $this->text = $text;
@@ -145,7 +156,6 @@ class Watermark
         //return sscanf($color, "#%02x%02x%02x");
         $data = $this->colorPalete();
         $color = trim($color);
-        print $color."\n";
         if (array_key_exists(strtolower($color), $data)) {
             $color = $data[$color];
         }
@@ -176,7 +186,7 @@ class Watermark
             'silver' => '#C0C0C0',
             'grey' => '#808080',
             'gray' => '#808080',
-            'purple' => '#800080',
+            'purpgle' => '#800080',
             'orange' => '#FFA500',
             'gold' => '#FFD700',
             'tomato' => '#FF6347',
